@@ -1,0 +1,11 @@
+*~
+*.bak
+builds
+cache
+*.class
+.idea
+*.iml
+*.jar
+.project
+.*.swp
+target

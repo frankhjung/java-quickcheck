@@ -1,0 +1,39 @@
+image: maven:3.6.0-jdk-8-slim
+
+variables:
+  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+cache:
+  paths:
+    - .m2/repository/
+    - target/
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  only:
+    refs:
+      - master
+      - /^feature.*/
+  script:
+    - mvn $MAVEN_CLI_OPTS validate fmt:check sortpom:verify package
+  artifacts:
+    paths:
+      - target
+
+pages:
+  stage: deploy
+  only:
+    refs:
+      - master
+  script:
+    - mvn $MAVEN_CLI_OPTS javadoc:javadoc site
+    - mv target/site public
+  artifacts:
+    paths:
+      - public
+      - target/*.jar
