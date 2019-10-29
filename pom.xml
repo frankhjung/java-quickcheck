@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.marlo</groupId>
-    <artifactId>example-quicktheories</artifactId>
+    <artifactId>example-quickcheck</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>quicktheories</name>
-    <description>Example property based testing using QuickTheories.</description>
-    <url>https://gitlab.com/theMarloGroup/examples/quicktheories</url>
+    <name>quickcheck</name>
+    <description>Example property based testing using QuickCheck.</description>
+    <url>https://gitlab.com/theMarloGroup/examples/quickcheck</url>
     <developers>
         <developer>
             <id>frank</id>
@@ -23,9 +23,9 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:git@gitlab.com:theMarloGroup/examples/quicktheories.git</connection>
-        <developerConnection>scm:git:git@gitlab.com:theMarloGroup/examples/quicktheories.git</developerConnection>
-        <url>scm:git:git@gitlab.com:theMarloGroup/examples/quicktheories.git</url>
+        <connection>scm:git:git@gitlab.com:theMarloGroup/examples/quickcheck.git</connection>
+        <developerConnection>scm:git:git@gitlab.com:theMarloGroup/examples/quickcheck.git</developerConnection>
+        <url>scm:git:git@gitlab.com:theMarloGroup/examples/quickcheck.git</url>
     </scm>
     <distributionManagement>
         <site>
@@ -34,20 +34,26 @@
         </site>
     </distributionManagement>
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>org.quicktheories</groupId>
-            <artifactId>quicktheories</artifactId>
-            <version>0.26</version>
+            <groupId>com.pholser</groupId>
+            <artifactId>junit-quickcheck-generators</artifactId>
+            <version>0.9</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.26</version>
+        </dependency>
+        <dependency>
+            <groupId>com.pholser</groupId>
+            <artifactId>junit-quickcheck-core</artifactId>
+            <version>0.9</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -106,7 +112,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.4</version>
+                <version>3.12.0</version>
                 <executions>
                     <execution>
                         <id>maven-pmd-plugin</id>
@@ -213,6 +219,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
                 <version>3.0.0</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.12.0</version>
+                <configuration>
+                    <targetJdk>${maven.compiler.source}</targetJdk>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
