@@ -4,7 +4,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Stream;
-import org.slf4j.LoggerFactory;
 
 /**
  * Example Word Count from STDIN program to evaluate junit-quickcheck.
@@ -44,14 +43,14 @@ public class ExampleApp {
    */
   public static void main(final String[] args) {
     // does not expect parameters
-    final var log = LoggerFactory.getLogger(ExampleApp.class);
     if (args.length > 0) {
-      log.error("Found {} arguments, none expected.", args.length);
+      System.out.printf("ERROR: Found %s arguments, none expected.", args.length);
+      System.exit(1); // NOPMD
     }
 
     // only read from stdin
     try (Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
-      log.info("{} words", wordCount(scanner));
+      System.out.println(wordCount(scanner));
     }
   }
 }

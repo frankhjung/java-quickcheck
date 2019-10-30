@@ -19,6 +19,8 @@ build:
     refs:
       - master
       - /^feature.*/
+  except:
+    - tags
   script:
     - mvn $MAVEN_CLI_OPTS clean validate fmt:check sortpom:verify package
     - cat README.md | mvn exec:java -Dexec.mainClass=com.marlo.quickcheck.ExampleApp
@@ -31,6 +33,8 @@ pages:
   only:
     refs:
       - master
+  except:
+    - tags
   script:
     - mvn $MAVEN_CLI_OPTS javadoc:javadoc site
     - mv target/site public
