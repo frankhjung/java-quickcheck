@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Example Word Count from STDIN program to evaluate junit-quickcheck.
  *
- * @see <a href="https://pholser.github.io/junit-quickcheck/"></a>junit-quickcheck</a>
+ * @see <a href="https://pholser.github.io/junit-quickcheck/">junit-quickcheck</a>
  */
 public class ExampleApp {
 
