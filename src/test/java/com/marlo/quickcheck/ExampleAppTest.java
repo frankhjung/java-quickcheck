@@ -13,39 +13,37 @@ import org.junit.runner.RunWith;
 /** The type String properties. */
 @RunWith(JUnitQuickcheck.class)
 public class ExampleAppTest {
-  /**
-   * Common example of concatenation of string lengths.
-   *
-   * @param s1 first test string
-   * @param s2 second test string
-   */
-  @Property
-  public void test_concatenationLength(String s1, String s2) {
-    assertEquals(s1.length() + s2.length(), (s1 + s2).length());
-  }
 
   /** Word count using traditional JUnit */
   @Test
-  public void test_word_counter_junit() {
-    String words = "one two three";
-    assertEquals(3, ExampleApp.wordCount(new Scanner(words)));
-    assertEquals(3, ExampleApp.wordCount(Stream.of(words)));
+  public void testStandardJunit() {
+    assertEquals(3, ExampleApp.wordCount(new Scanner("one two three")));
+    assertEquals(3, ExampleApp.wordCount(Stream.of("one two three")));
   }
 
   /** Test empty word count (i.e. 0 expected) using JUnit. */
   @Test
-  public void test_word_counter_empty() {
-    String empty = "";
-    assertEquals(0, ExampleApp.wordCount(new Scanner(empty)));
-    assertEquals(0, ExampleApp.wordCount(Stream.of(empty)));
+  public void testEmpty() {
+    assertEquals(0, ExampleApp.wordCount(new Scanner("")));
+    assertEquals(0, ExampleApp.wordCount(Stream.of("")));
   }
 
   /** Test empty word count (i.e. 0 expected) using JUnit. */
   @Test
-  public void test_word_counter_whitespace() {
-    String whitespace = "         ";
-    assertEquals(0, ExampleApp.wordCount(new Scanner(whitespace)));
-    assertEquals(0, ExampleApp.wordCount(Stream.of(whitespace)));
+  public void testWhitespace() {
+    assertEquals(0, ExampleApp.wordCount(new Scanner("         ")));
+    assertEquals(0, ExampleApp.wordCount(Stream.of("         ")));
+  }
+
+  /**
+   * Common example of concatenation of string lengths.
+   *
+   * @param sample1 first test string
+   * @param sample2 second test string
+   */
+  @Property
+  public void testQuickCheckConcatenationLength(final String sample1, final String sample2) {
+    assertEquals(sample1.length() + sample2.length(), (sample1 + sample2).length());
   }
 
   /**
@@ -54,9 +52,9 @@ public class ExampleAppTest {
    * @param words from random string
    */
   @Property
-  public void test_word_counter_quick_check(final String words) {
+  public void testExampleQuickCheck(final String words) {
     Assume.assumeNotNull(words);
-    Assume.assumeTrue(words.trim().length() > 0);
+    Assume.assumeFalse(words.trim().isEmpty());
     assertEquals(words.trim().split("\\s+").length, ExampleApp.wordCount(Stream.of(words)));
   }
 
@@ -66,9 +64,7 @@ public class ExampleAppTest {
    * @param words the word stream
    */
   @Property
-  public void test_word_counter_stream(final String words) {
-    Stream<String> stream = Stream.of(words);
-    Scanner scanner = new Scanner(words);
-    assertEquals(ExampleApp.wordCount(stream), ExampleApp.wordCount(scanner));
+  public void testExampleQuickCheckMethodsGiveSameResult(final String words) {
+    assertEquals(ExampleApp.wordCount(Stream.of(words)), ExampleApp.wordCount(new Scanner(words)));
   }
 }

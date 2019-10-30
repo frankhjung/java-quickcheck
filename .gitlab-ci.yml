@@ -32,7 +32,7 @@ pages:
     refs:
       - master
   script:
-    - mvn $MAVEN_CLI_OPTS site
+    - mvn $MAVEN_CLI_OPTS javadoc:javadoc site
     - mv target/site public
   artifacts:
     paths:

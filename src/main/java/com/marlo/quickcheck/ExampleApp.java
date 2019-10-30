@@ -1,5 +1,6 @@
 package com.marlo.quickcheck;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Stream;
@@ -10,7 +11,7 @@ import org.slf4j.LoggerFactory;
  *
  * @see <a href="https://pholser.github.io/junit-quickcheck/">junit-quickcheck</a>
  */
-class ExampleApp {
+public class ExampleApp {
 
   /**
    * Function to count words.
@@ -49,13 +50,8 @@ class ExampleApp {
     }
 
     // only read from stdin
-    final Scanner scanner = new Scanner(System.in);
-    try {
+    try (Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
       log.info("{} words", wordCount(scanner));
-    } catch (Exception e) {
-      log.error("Unknown error occurred.", e);
-    } finally {
-      scanner.close();
     }
   }
 }
