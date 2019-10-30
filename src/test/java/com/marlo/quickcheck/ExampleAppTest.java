@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 @RunWith(JUnitQuickcheck.class)
 public class ExampleAppTest {
   /**
-   * Concatenation length.
+   * Common example of concatenation of string lengths.
    *
    * @param s1 the s 1
    * @param s2 the s 2

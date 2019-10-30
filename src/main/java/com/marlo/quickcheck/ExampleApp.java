@@ -5,7 +5,11 @@ import java.util.Scanner;
 import java.util.stream.Stream;
 import org.slf4j.LoggerFactory;
 
-/** Word Count from stdin. */
+/**
+ * Example Word Count from STDIN program to evaluate junit-quickcheck.
+ *
+ * @see <a href="https://pholser.github.io/junit-quickcheck/"></a>junit-quickcheck</a>
+ */
 public class ExampleApp {
 
   /**
@@ -32,25 +36,13 @@ public class ExampleApp {
    * @param args the input arguments
    */
   public static void main(String[] args) {
-
+    // does not expect parameters
     var log = LoggerFactory.getLogger(ExampleApp.class);
     if (args.length > 0) {
       log.error("Found {} arguments, none expected.", args.length);
     }
 
-    System.out.println("Nothing:");
-    String[] nothing = {""};
-    System.out.println(wordCount(Stream.of(nothing)));
-
-    System.out.println("Empty:");
-    String[] empty = {};
-    System.out.println(wordCount(Stream.of(empty)));
-
-    System.out.println("Generate:");
-    Stream<String> stream = Stream.generate(() -> "test").limit(10);
-    System.out.println(wordCount(stream));
-
-    System.out.println("Stdin:");
+    // only read from stdin
     Scanner scanner = new Scanner(System.in);
     System.out.println(wordCount(scanner));
     scanner.close();
