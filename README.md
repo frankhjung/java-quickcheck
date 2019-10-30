@@ -12,7 +12,7 @@ mvn $MAVEN_CLI_OPTS clean validate fmt:format sortpom:sort package
 Build documentation with:
 
 ```bash
-mvn $MAVEN_CLI_OPTS javadoc:javadoc site
+mvn $MAVEN_CLI_OPTS javadoc:javadoc
 ```
 
 ## Run Example

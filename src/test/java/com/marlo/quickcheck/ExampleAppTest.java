@@ -16,8 +16,8 @@ public class ExampleAppTest {
   /**
    * Common example of concatenation of string lengths.
    *
-   * @param s1 the s 1
-   * @param s2 the s 2
+   * @param s1 first test string
+   * @param s2 second test string
    */
   @Property
   public void test_concatenationLength(String s1, String s2) {
