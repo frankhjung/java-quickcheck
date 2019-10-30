@@ -2,12 +2,11 @@ package com.marlo.quickcheck;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.stream.Stream;
-
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
+import java.util.Scanner;
+import java.util.stream.Stream;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -29,23 +28,47 @@ public class ExampleAppTest {
   @Test
   public void test_word_counter_junit() {
     String words = "one two three";
-    assertEquals(words.trim().split("\\s+").length, ExampleApp.wordCount(Stream.of(words)));
+    assertEquals(3, ExampleApp.wordCount(new Scanner(words)));
+    assertEquals(3, ExampleApp.wordCount(Stream.of(words)));
   }
 
   /** Test empty word count (i.e. 0 expected) using JUnit. */
   @Test
   public void test_word_counter_empty() {
-    assertEquals(0, ExampleApp.wordCount(Stream.of("")));
+    String empty = "";
+    assertEquals(0, ExampleApp.wordCount(new Scanner(empty)));
+    assertEquals(0, ExampleApp.wordCount(Stream.of(empty)));
+  }
+
+  /** Test empty word count (i.e. 0 expected) using JUnit. */
+  @Test
+  public void test_word_counter_whitespace() {
+    String whitespace = "         ";
+    assertEquals(0, ExampleApp.wordCount(new Scanner(whitespace)));
+    assertEquals(0, ExampleApp.wordCount(Stream.of(whitespace)));
   }
 
   /**
-   * Word countr from stream.
+   * Word count from a random string.
    *
-   * @param words the input stream
+   * @param words from random string
    */
   @Property
-  public void test_word_counter_quickcheck(final ArrayList<String> words) {
-    words.removeAll(Collections.singleton(""));
-    assertEquals(words.size(), ExampleApp.wordCount(words.stream()));
+  public void test_word_counter_quick_check(final String words) {
+    Assume.assumeNotNull(words);
+    Assume.assumeTrue(words.trim().length() > 0);
+    assertEquals(words.trim().split("\\s+").length, ExampleApp.wordCount(Stream.of(words)));
+  }
+
+  /**
+   * Test word counter is same for stream as scanner.
+   *
+   * @param words the word stream
+   */
+  @Property
+  public void test_word_counter_stream(final String words) {
+    Stream<String> stream = Stream.of(words);
+    Scanner scanner = new Scanner(words);
+    assertEquals(ExampleApp.wordCount(stream), ExampleApp.wordCount(scanner));
   }
 }

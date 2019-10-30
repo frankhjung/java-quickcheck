@@ -20,7 +20,8 @@ build:
       - master
       - /^feature.*/
   script:
-    - mvn $MAVEN_CLI_OPTS validate fmt:check sortpom:verify package
+    - mvn $MAVEN_CLI_OPTS clean validate fmt:check sortpom:verify package
+    - cat README.md | mvn exec:java -Dexec.mainClass=com.marlo.quickcheck.ExampleApp
   artifacts:
     paths:
       - target
