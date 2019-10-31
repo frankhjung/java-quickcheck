@@ -1,7 +1,9 @@
 package com.marlo.quickcheck;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import com.pholser.junit.quickcheck.From;
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import java.util.Scanner;
@@ -29,21 +31,17 @@ public class ExampleAppTest {
   }
 
   /** Test empty word count (i.e. 0 expected) using JUnit. */
-  @Test
-  public void testWhitespace() {
-    assertEquals(0, ExampleApp.wordCount(new Scanner("         ")));
-    assertEquals(0, ExampleApp.wordCount(Stream.of("         ")));
+  @Property
+  public void testWhitespace(final @From(WhiteSpaceGenerator.class) String whitespace) {
+    assertEquals(0, ExampleApp.wordCount(new Scanner(whitespace)));
+    assertEquals(0, ExampleApp.wordCount(Stream.of(whitespace)));
   }
 
-  /**
-   * Common example of concatenation of string lengths.
-   *
-   * @param sample1 first test string
-   * @param sample2 second test string
-   */
   @Property
-  public void testQuickCheckConcatenationLength(final String sample1, final String sample2) {
-    assertEquals(sample1.length() + sample2.length(), (sample1 + sample2).length());
+  public void testWhitespaceGenerator(final @From(WhiteSpaceGenerator.class) String whitespaces) {
+    assertTrue(whitespaces.length() >= 0);
+    assertEquals(0, whitespaces.trim().length());
+    assertEquals(0, ExampleApp.wordCount(Stream.of(whitespaces)));
   }
 
   /**
@@ -59,11 +57,12 @@ public class ExampleAppTest {
   }
 
   /**
-   * Test word counter is same for stream as scanner.
+   * Test word counter is same for stream as scanner. Trails increased from the default of 100 to
+   * 1000.
    *
    * @param words the word stream
    */
-  @Property
+  @Property(trials = 1000)
   public void testExampleQuickCheckMethodsGiveSameResult(final String words) {
     assertEquals(ExampleApp.wordCount(Stream.of(words)), ExampleApp.wordCount(new Scanner(words)));
   }
