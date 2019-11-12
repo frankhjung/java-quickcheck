@@ -8,13 +8,14 @@ Read API documentation
 Build with:
 
 ```bash
-export MAVEN_CLI_OPTS="-s .m2/settings.xml" mvn $MAVEN_CLI_OPTS clean validate fmt:format sortpom:sort package
+export MAVEN_CLI_OPTS="-s .m2/settings.xml"
+mvn $MAVEN_CLI_OPTS clean validate fmt:format sortpom:sort package
 ```
 
 Build documentation with:
 
 ```bash
-mvn $MAVEN_CLI_OPTS javadoc:javadoc
+mvn $MAVEN_CLI_OPTS javadoc:javadoc site
 ```
 
 ## Run Example

@@ -66,4 +66,14 @@ public class ExampleAppTest {
   public void testExampleQuickCheckMethodsGiveSameResult(final String words) {
     assertEquals(ExampleApp.wordCount(Stream.of(words)), ExampleApp.wordCount(new Scanner(words)));
   }
+
+  /**
+   * Test word counter is same for stream as scanner using Alphanumeric generator.
+   *
+   * @param words the word stream
+   */
+  @Property(trials = 1000)
+  public void testAlphanumericStrings(final @From(AlphaNumericGenerator.class) String words) {
+    assertEquals(ExampleApp.wordCount(Stream.of(words)), ExampleApp.wordCount(new Scanner(words)));
+  }
 }

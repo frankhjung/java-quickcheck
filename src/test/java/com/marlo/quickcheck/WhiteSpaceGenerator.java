@@ -6,14 +6,15 @@ import com.pholser.junit.quickcheck.random.SourceOfRandomness;
 import java.util.stream.IntStream;
 
 /**
- * Generates a string of whitespace characters. @See
- * https://pholser.github.io/junit-quickcheck/site/0.9/usage/configuring.html @See
- * https://www.veracode.com/blog/managing-appsec/property-based-testing-java @See
- * https://docs.oracle.com/javase/8/docs/api/java/lang/Character.html
+ * Generates a string of whitespace characters.
+ *
+ * <p>@See {link https://pholser.github.io/junit-quickcheck/site/0.9/usage/configuring.html} <br>
+ * @See {link https://www.veracode.com/blog/managing-appsec/property-based-testing-java} <br>
+ * @See {link https://docs.oracle.com/javase/8/docs/api/java/lang/Character.html}
  */
 public final class WhiteSpaceGenerator extends Generator<String> {
 
-  private final String WHITESPACE_CHARS =
+  private static final String WHITESPACE_CHARS =
       " " // SPACE
           + "\n" // LINE FEED (LF)
           + "\r" // CARRIAGE RETURN (CR)
@@ -23,7 +24,7 @@ public final class WhiteSpaceGenerator extends Generator<String> {
       ;
 
   /** Maximum string size. */
-  private static final short CAPACITY = 100;
+  private static final int CAPACITY = 100;
 
   /** Inherit form super class. */
   public WhiteSpaceGenerator() {
@@ -35,7 +36,7 @@ public final class WhiteSpaceGenerator extends Generator<String> {
     StringBuilder sb = new StringBuilder(CAPACITY);
     IntStream.range(0, CAPACITY)
         .forEach(
-            $ -> {
+            ignored -> {
               int randomIndex = randomness.nextInt(WHITESPACE_CHARS.length());
               sb.append(WHITESPACE_CHARS.charAt(randomIndex));
             });
