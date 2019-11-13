@@ -5,14 +5,14 @@ import com.pholser.junit.quickcheck.generator.Generator;
 import com.pholser.junit.quickcheck.random.SourceOfRandomness;
 import java.util.stream.IntStream;
 
-/**
- * Generate alpha-numeric characters. @See <br>
- * {link https://pholser.github.io/junit-quickcheck/site/0.9/usage/configuring.html}
- */
-public class AlphaNumericGenerator extends Generator<String> {
+/** Generate alpha-numeric characters. */
+public final class AlphaNumericGenerator extends Generator<String> {
 
-  private static final String ALPHANUMERIC_CHARS = // NOPMD
-      "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789";
+  static final String ALPHANUMERIC_CHARS =
+      "abcdefghijklmnopqrstuvwxyz"
+          + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+          + "0123456789"
+          + WhiteSpaceGenerator.WHITESPACE_CHARS;
 
   /** Maximum string size. */
   private static final int CAPACITY = 100;
@@ -23,13 +23,12 @@ public class AlphaNumericGenerator extends Generator<String> {
   }
 
   @Override
-  public String generate(SourceOfRandomness randomness, GenerationStatus status) {
-
-    StringBuilder randomString = new StringBuilder(CAPACITY);
+  public String generate(final SourceOfRandomness randomness, final GenerationStatus status) {
+    final StringBuilder randomString = new StringBuilder(CAPACITY);
     IntStream.range(0, CAPACITY)
         .forEach(
             ignored -> {
-              int randomIndex = randomness.nextInt(ALPHANUMERIC_CHARS.length());
+              final int randomIndex = randomness.nextInt(ALPHANUMERIC_CHARS.length());
               randomString.append(ALPHANUMERIC_CHARS.charAt(randomIndex));
             });
     return randomString.toString();
