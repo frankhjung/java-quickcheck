@@ -18,11 +18,11 @@ public final class ExampleApp {
   public static void main(final String[] args) {
     // does not expect parameters
     if (args.length > 0) {
-      System.out.printf("USAGE: count words from file read from STDIN");
+      System.out.print("USAGE: count words from file read from STDIN");
     } else {
       // only read from stdin
       try (Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
-        System.out.println(WordCountUtil.count(scanner));
+        System.out.println(WordCountUtils.count(scanner));
       }
     }
   }

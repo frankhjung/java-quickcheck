@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 public final class WhiteSpaceGenerator extends Generator<String> {
 
   /** Valid whitespace characters. */
-  static final String WHITESPACE_CHARS =
+  private static final String WHITESPACES =
       " " // SPACE
           + "\n" // LINE FEED (LF)
           + "\r" // CARRIAGE RETURN (CR)
@@ -19,7 +19,7 @@ public final class WhiteSpaceGenerator extends Generator<String> {
       ;
 
   /** Maximum string size. */
-  private static final int CAPACITY = 100;
+  private static final int CAPACITY = 10;
 
   /** Inherit form super class. */
   public WhiteSpaceGenerator() {
@@ -32,8 +32,8 @@ public final class WhiteSpaceGenerator extends Generator<String> {
     IntStream.range(0, CAPACITY)
         .forEach(
             ignored -> {
-              final int randomIndex = randomness.nextInt(WHITESPACE_CHARS.length());
-              randomString.append(WHITESPACE_CHARS.charAt(randomIndex));
+              final int randomIndex = randomness.nextInt(WHITESPACES.length());
+              randomString.append(WHITESPACES.charAt(randomIndex));
             });
     return randomString.toString();
   }
