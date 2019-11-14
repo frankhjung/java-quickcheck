@@ -8,9 +8,9 @@ import java.util.stream.IntStream;
 /** Generate alpha-numeric characters. */
 public final class AlphaNumericGenerator extends Generator<String> {
 
-  /** Alphanumeric characters: a-zA-Z0-9 */
+  /** Alphanumeric characters: "0-9A-Za-z". */
   private static final String ALPHANUMERICS =
-      "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
   /** Maximum string size. */
   private static final int CAPACITY = 10;
@@ -20,10 +20,12 @@ public final class AlphaNumericGenerator extends Generator<String> {
     super(String.class);
   }
 
+  /** Generate a word. Do not create null words. */
   @Override
   public String generate(final SourceOfRandomness randomness, final GenerationStatus status) {
-    final StringBuilder randomString = new StringBuilder(CAPACITY);
-    IntStream.range(0, CAPACITY)
+    final int stringSize = randomness.nextInt(CAPACITY) + 1; // want non-null words
+    final StringBuilder randomString = new StringBuilder(stringSize);
+    IntStream.range(0, stringSize)
         .forEach(
             ignored -> {
               final int randomIndex = randomness.nextInt(ALPHANUMERICS.length());

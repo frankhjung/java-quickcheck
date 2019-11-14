@@ -28,8 +28,9 @@ public final class WhiteSpaceGenerator extends Generator<String> {
 
   @Override
   public String generate(final SourceOfRandomness randomness, final GenerationStatus status) {
-    final StringBuilder randomString = new StringBuilder(CAPACITY);
-    IntStream.range(0, CAPACITY)
+    final int stringSize = randomness.nextInt(CAPACITY);
+    final StringBuilder randomString = new StringBuilder(stringSize);
+    IntStream.range(0, stringSize)
         .forEach(
             ignored -> {
               final int randomIndex = randomness.nextInt(WHITESPACES.length());
