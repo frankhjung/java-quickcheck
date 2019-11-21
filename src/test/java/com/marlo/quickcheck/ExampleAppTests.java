@@ -52,13 +52,13 @@ public class ExampleAppTests {
     final InputStream originalInStream = System.in;
     final InputStream testInStream = new ByteArrayInputStream(new byte[0]);
     // capture stdout to byte array
-    final PrintStream originalOutStream = System.out;
+    final PrintStream originalErrStream = System.err;
     final ByteArrayOutputStream testByteStream = new ByteArrayOutputStream();
-    final PrintStream testOutStream = new PrintStream(testByteStream, true, StandardCharsets.UTF_8);
+    final PrintStream testErrStream = new PrintStream(testByteStream, true, StandardCharsets.UTF_8);
     try {
       // redirect stdio
       System.setIn(testInStream);
-      System.setOut(testOutStream);
+      System.setErr(testErrStream);
       // call my main
       ExampleApp.main(new String[] {"bad args"});
       // inspect stdout
@@ -68,9 +68,9 @@ public class ExampleAppTests {
     } finally {
       // restore original stdin and stdout
       testInStream.close();
-      testOutStream.close();
+      testErrStream.close();
       System.setIn(originalInStream);
-      System.setOut(originalOutStream);
+      System.setErr(originalErrStream);
     }
   }
 }
