@@ -102,6 +102,7 @@
                             <phase>verify</phase>
                             <goals>
                                 <goal>sort</goal>
+                                <goal>check</goal>
                             </goals>
                         </execution>
                     </executions>
