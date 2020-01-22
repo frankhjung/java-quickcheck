@@ -10,9 +10,9 @@ import java.util.Scanner;
 public final class ExampleApp {
 
   /**
-   * Count words from StdIn.
+   * Count words from STDIN.
    *
-   * @param args the input arguments
+   * @param args no input arguments used
    */
   public static void main(final String[] args) {
     // does not expect parameters
