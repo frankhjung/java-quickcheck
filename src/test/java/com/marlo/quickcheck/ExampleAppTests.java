@@ -1,19 +1,19 @@
 package com.marlo.quickcheck;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 /** The type String properties. */
-@RunWith(JUnitQuickcheck.class)
+@TestMethodOrder(MethodOrderer.Random.class)
 public class ExampleAppTests {
 
   /** Main using custom STDIN. */

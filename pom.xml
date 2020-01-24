@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.marlo</groupId>
     <artifactId>example-quickcheck</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
     <packaging>jar</packaging>
     <name>quickcheck</name>
     <description>Example property based testing using QuickCheck.</description>
@@ -34,6 +34,7 @@
         </site>
     </distributionManagement>
     <properties>
+        <additionalparam>-Xdoclint:none</additionalparam>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -52,7 +53,7 @@
         <dependency>
             <groupId>com.pholser</groupId>
             <artifactId>junit-quickcheck-generators</artifactId>
-            <version>0.9</version>
+            <version>0.9.1</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -63,19 +64,19 @@
         <dependency>
             <groupId>com.pholser</groupId>
             <artifactId>junit-quickcheck-core</artifactId>
-            <version>0.9</version>
+            <version>0.9.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.6.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
-        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
-        <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -102,7 +103,6 @@
                             <phase>verify</phase>
                             <goals>
                                 <goal>sort</goal>
-                                <goal>check</goal>
                             </goals>
                         </execution>
                     </executions>
@@ -121,6 +121,18 @@
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>3.1.12.2</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <effort>max</effort>
+                    <threshold>high</threshold>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
@@ -194,7 +206,7 @@
         </plugins>
     </build>
     <reporting>
-        <outputDirectory>${basedir}/target/site</outputDirectory>
+        <outputDirectory>target/site</outputDirectory>
         <plugins>
             <plugin>
                 <groupId>com.github.spotbugs</groupId>

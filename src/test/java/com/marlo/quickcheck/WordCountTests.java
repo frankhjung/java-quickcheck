@@ -1,6 +1,6 @@
 package com.marlo.quickcheck;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.pholser.junit.quickcheck.From;
 import com.pholser.junit.quickcheck.Property;
@@ -9,11 +9,10 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assume;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 
-/** WordCountUtil tests using both JUnit and junit-quickcheck. */
+/** WordCountUtil tests using both Jupiter (JUnit5) and junit-quickcheck. */
 @RunWith(JUnitQuickcheck.class)
 @Slf4j
 public class WordCountTests {
@@ -61,8 +60,8 @@ public class WordCountTests {
    */
   @Property
   public void testCountUsingSplit(final String words) {
-    Assume.assumeNotNull(words);
-    Assume.assumeFalse(words.trim().isEmpty());
+    assertNotNull(words);
+    assertFalse(words.trim().isEmpty());
     final long count = WordCountUtils.count(Stream.of(words));
     log.debug("testCountUsingSplit: {}", words);
     assertEquals(words.trim().split("\\s+").length, count);
@@ -75,8 +74,8 @@ public class WordCountTests {
   //   */
   //  @Property
   //  public void testFailedTest(final String words) {
-  //    Assume.assumeNotNull(words);
-  //    Assume.assumeFalse(words.trim().isEmpty());
+  //    assertNotNull(words);
+  //    assertFalse(words.trim().isEmpty());
   //    log.debug("testFailedTest: {}", words);
   //    assertEquals(words.trim().split("\\n+").length, WordCountUtils.count(Stream.of(words)));
   //  }
@@ -94,7 +93,20 @@ public class WordCountTests {
   }
 
   /**
-   * Test alphanumeric word is same for stream as scanner using Alphanumeric generator. Trails
+   * Test a sentence of alphanumeric words. A sentence is a list of words separated by a space.
+   *
+   * @param words build a sentence from a word stream
+   */
+  @Property
+  public void testAlphanumericSentence(
+      final List<@From(AlphaNumericGenerator.class) String> words) {
+    final String sentence = String.join(" ", words);
+    assertEquals(
+        WordCountUtils.count(new Scanner(sentence)), WordCountUtils.count(Stream.of(sentence)));
+  }
+
+  /**
+   * Test alphanumeric word is same for stream as scanner using Alphanumeric generator. Trials
    * increased from the default of 100 to 1000.
    *
    * @param word a random alphanumeric word
@@ -103,18 +115,5 @@ public class WordCountTests {
   public void testAlphanumericWord(final @From(AlphaNumericGenerator.class) String word) {
     assertEquals(1, WordCountUtils.count(new Scanner(word)));
     assertEquals(1, WordCountUtils.count(Stream.of(word)));
-  }
-
-  /**
-   * Test a sentence of alphanumeric words. A sentence is a list of words separated by a space.
-   *
-   * @param words the word stream
-   */
-  @Property
-  public void testAlphanumericSentence(
-      final List<@From(AlphaNumericGenerator.class) String> words) {
-    final String sentence = String.join(" ", words);
-    assertEquals(
-        WordCountUtils.count(new Scanner(sentence)), WordCountUtils.count(Stream.of(sentence)));
   }
 }
