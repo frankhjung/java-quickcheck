@@ -3,12 +3,20 @@
 Read API documentation
 [here](https://themarlogroup.gitlab.io/examples/quickcheck/).
 
-## Build Package
+## Sort POM and Format Code
 
-Build with:
+Sort POM and format code using Google style with:
 
 ```bash
-mvn clean validate fmt:format sortpom:sort package
+mvn sortpom:sort fmt:format
+```
+
+## Build Package
+
+Build package and site documentation with:
+
+```bash
+mvn clean install
 ```
 
 ## Run Tests
@@ -50,4 +58,3 @@ cat README.md | java -cp target/com.marlo.example-quickcheck.jar com.marlo.quick
 * [junit-quickcheck (GitHub)](https://github.com/pholser/junit-quickcheck)
 * [Property Based Testing in Java](https://www.veracode.com/blog/managing-appsec/property-based-testing-java)
 * [Unicode lookup](http://unicode.scarfboy.com/)
-
