@@ -1,14 +1,12 @@
 image: maven:3.6.3-jdk-11-slim
 
 variables:
-  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
-  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  MAVEN_OPTS: -Dmaven.repo.local=.m2/repository
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - .m2/repository/
-    - target/
 
 stages:
   - build
@@ -16,14 +14,10 @@ stages:
 
 build:
   stage: build
-  only:
-    refs:
-      - master
-      - /^feature.*/
   except:
     - tags
   script:
-    - mvn $MAVEN_CLI_OPTS clean validate fmt:check sortpom:verify package
+    - mvn clean install
     - cat README.md | mvn exec:java -Dexec.mainClass=com.marlo.quickcheck.ExampleApp
   artifacts:
     paths:
@@ -37,7 +31,6 @@ pages:
   except:
     - tags
   script:
-    - mvn $MAVEN_CLI_OPTS verify javadoc:javadoc site
     - mv target/site public
   artifacts:
     paths:

@@ -85,11 +85,9 @@
                     <version>2.9</version>
                     <executions>
                         <execution>
-                            <id>format</id>
-                            <phase>verify</phase>
+                            <phase>validate</phase>
                             <goals>
                                 <goal>check</goal>
-                                <goal>format</goal>
                             </goals>
                         </execution>
                     </executions>
@@ -100,7 +98,7 @@
                     <version>2.10.0</version>
                     <executions>
                         <execution>
-                            <phase>verify</phase>
+                            <phase>validate</phase>
                             <goals>
                                 <goal>sort</goal>
                             </goals>
@@ -111,7 +109,7 @@
                         <sortPlugins>groupId,artifactId</sortPlugins>
                         <sortDependencies>scope,groupId,artifactId</sortDependencies>
                         <sortProperties>true</sortProperties>
-                        <verifyFail>stop</verifyFail>
+                        <verifyFail>Stop</verifyFail>
                     </configuration>
                 </plugin>
             </plugins>
@@ -130,8 +128,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <effort>max</effort>
-                    <threshold>high</threshold>
+                    <effort>Max</effort>
+                    <threshold>High</threshold>
+                    <failOnError>true</failOnError>
                 </configuration>
             </plugin>
             <plugin>
