@@ -9,6 +9,10 @@ import java.util.Scanner;
  */
 public final class ExampleApp {
 
+  private ExampleApp() {
+    // hide constructor
+  }
+
   /**
    * Count words from STDIN.
    *

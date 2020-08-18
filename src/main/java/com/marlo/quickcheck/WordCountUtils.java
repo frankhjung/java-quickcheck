@@ -7,6 +7,10 @@ import java.util.stream.Stream;
 /** Provides two methods to count words. */
 public final class WordCountUtils {
 
+  private WordCountUtils() {
+    // hide constructor
+  }
+
   /**
    * Get word count from scanner.
    *
