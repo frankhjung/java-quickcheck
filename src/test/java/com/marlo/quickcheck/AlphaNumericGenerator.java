@@ -12,6 +12,9 @@ public final class AlphaNumericGenerator extends Generator<String> {
   private static final String ALPHANUMERICS =
       "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
+  /** Maximum word length. */
+  private static final int MAX_WORD_LENGTH = 11;
+
   /** Inherit form super class. */
   public AlphaNumericGenerator() {
     super(String.class);
@@ -20,7 +23,7 @@ public final class AlphaNumericGenerator extends Generator<String> {
   /** Generate a alphanumeric word of length 1 to 12 characters. Do not create null words. */
   @Override
   public String generate(final SourceOfRandomness randomness, final GenerationStatus status) {
-    final int stringSize = randomness.nextInt(11) + 1; // only non-null words
+    final int stringSize = randomness.nextInt(MAX_WORD_LENGTH) + 1; // non-empty words
     final StringBuilder randomString = new StringBuilder(stringSize);
     IntStream.range(0, stringSize)
         .forEach(

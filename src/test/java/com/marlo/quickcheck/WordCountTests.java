@@ -93,7 +93,7 @@ public class WordCountTests {
   }
 
   /**
-   * Test a sentence of alphanumeric words. A sentence is a list of words separated by a space.
+   * Test a "sentence" of alphanumeric words. A sentence is a list of words separated by a space.
    *
    * @param words build a sentence from a word stream
    */
