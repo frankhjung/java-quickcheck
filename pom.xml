@@ -88,6 +88,7 @@
                             <phase>validate</phase>
                             <goals>
                                 <goal>check</goal>
+                                <goal>format</goal>
                             </goals>
                         </execution>
                     </executions>
@@ -249,6 +250,7 @@
                     <spotbugsXmlOutput>true</spotbugsXmlOutput>
                     <spotbugsXmlOutputDirectory>target/site</spotbugsXmlOutputDirectory>
                     <skipEmptyReport>false</skipEmptyReport>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                     <includeTests>true</includeTests>
                     <classFilesDirectory>target/classes</classFilesDirectory>
                     <failOnError>true</failOnError>
