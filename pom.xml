@@ -19,7 +19,10 @@
             <roles>
                 <role>consultant</role>
             </roles>
-            <timezone>+10</timezone>
+            <timezone>Australia/Melbourne</timezone>
+            <properties>
+                <picUrl>http://2.gravatar.com/avatar/84b4cc34429fbb55d925679efa9a8c30</picUrl>
+            </properties>
         </developer>
     </developers>
     <scm>
@@ -129,17 +132,17 @@
                 <version>3.1.12.2</version>
                 <executions>
                     <execution>
-                        <phase>compile</phase>
+                        <phase>validate</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
-                    <effort>Max</effort>
+                    <effort>max</effort>
                     <xmlOutput>true</xmlOutput>
                     <includeTests>true</includeTests>
-                    <threshold>Medium</threshold>
+                    <threshold>high</threshold>
                     <failOnError>true</failOnError>
                     <plugins>
                         <plugin>
@@ -175,6 +178,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <minimizeJar>true</minimizeJar>
                             <finalName>${project.groupId}.${project.artifactId}</finalName>
                             <filters>
                                 <filter>
