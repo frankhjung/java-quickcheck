@@ -1,6 +1,8 @@
 package com.marlo.quickcheck;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.pholser.junit.quickcheck.From;
 import com.pholser.junit.quickcheck.Property;
@@ -8,13 +10,11 @@ import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Stream;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 
 /** WordCountUtil tests using both Jupiter (JUnit5) and junit-quickcheck. */
 @RunWith(JUnitQuickcheck.class)
-@Slf4j
 public class WordCountTests {
 
   /** Word count using traditional JUnit. */
@@ -63,7 +63,6 @@ public class WordCountTests {
     assertNotNull(words);
     assertFalse(words.trim().isEmpty());
     final long count = WordCountUtils.count(Stream.of(words));
-    log.debug("testCountUsingSplit: {}", words);
     assertEquals(words.trim().split("\\s+").length, count);
   }
 

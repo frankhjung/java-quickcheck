@@ -27,6 +27,25 @@ Run tests with:
 mvn test
 ```
 
+Using property tests could consume more memory. To increase HEAP space add
+configuration to the surefire plugin:
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <version>3.0.0-M3</version>
+    <configuration>
+        <argLine>@{argLine} -Xmx1024m</argLine>
+    </configuration>
+</plugin>
+```
+
+You need to include the `argline` option otherwise surefire will override
+[JaCoCo](https://www.eclemma.org/jacoco/trunk/doc/maven.html) prevent coverage
+reports from being generated. See also [JaCoCo and the surefire
+argline](http://www.devll.org/blog/2020/java/jacoco-argline.html)
+
 ## Build JavaDoc
 
 Generate
