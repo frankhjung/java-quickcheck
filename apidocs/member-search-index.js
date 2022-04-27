@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"com.marlo.quickcheck","c":"WordCountUtils","l":"count(Scanner)","url":"count(java.util.Scanner)"},{"p":"com.marlo.quickcheck","c":"WordCountUtils","l":"count(Stream<String>)","url":"count(java.util.stream.Stream)"},{"p":"com.marlo.quickcheck","c":"ExampleApp","l":"main(String[])","url":"main(java.lang.String[])"}]

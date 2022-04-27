@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"com.marlo.quickcheck","l":"ExampleApp"},{"p":"com.marlo.quickcheck","l":"WordCountUtils"}]
