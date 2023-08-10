@@ -1,12 +1,12 @@
 package com.marlo.quickcheck;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.pholser.junit.quickcheck.From;
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Stream;
@@ -34,6 +34,8 @@ public class WordCountTests {
   /**
    * Test scanner with empty word count (0 expected). Trails increased from the default of 100 to
    * 1000.
+   *
+   * @param whitespaces a string of whitespaces
    */
   @Property(trials = 1000)
   public void testWhitespaceScannerGenerator(
@@ -45,6 +47,8 @@ public class WordCountTests {
   /**
    * Test stream with empty word count (0 expected). Trails increased from the default of 100 to
    * 1000.
+   *
+   * @param whitespaces a string of whitespaces
    */
   @Property(trials = 1000)
   public void testWhitespaceStreamGenerator(
@@ -61,23 +65,25 @@ public class WordCountTests {
   @Property
   public void testCountUsingSplit(final String words) {
     assertNotNull(words);
-    assertFalse(words.trim().isEmpty());
-    final long count = WordCountUtils.count(Stream.of(words));
-    assertEquals(words.trim().split("\\s+").length, count);
+    final long actual = WordCountUtils.count(Stream.of(words));
+    final long expected =
+        Arrays.stream(words.trim().split("\\s+")).filter(word -> !word.isBlank()).count();
+    assertEquals(expected, actual);
   }
 
-  //  /**
-  //   * Example of failed test.
-  //   *
-  //   * @param words a word from random string
-  //   */
-  //  @Property
-  //  public void testFailedTest(final String words) {
-  //    assertNotNull(words);
-  //    assertFalse(words.trim().isEmpty());
-  //    log.debug("testFailedTest: {}", words);
-  //    assertEquals(words.trim().split("\\n+").length, WordCountUtils.count(Stream.of(words)));
-  //  }
+  // /**
+  // * Example of failed test.
+  // *
+  // * @param words a word from random string
+  // */
+  // @Property
+  // public void testFailedTest(final String words) {
+  // assertNotNull(words);
+  // assertFalse(words.trim().isEmpty());
+  // log.debug("testFailedTest: {}", words);
+  // assertEquals(words.trim().split("\\n+").length,
+  // WordCountUtils.count(Stream.of(words)));
+  // }
 
   /**
    * Test word counter is same for stream as scanner. <br>
@@ -99,7 +105,7 @@ public class WordCountTests {
   @Property
   public void testAlphanumericSentence(
       final List<@From(AlphaNumericGenerator.class) String> words) {
-    final String sentence = String.join(" ", words);
+    final String sentence = String.join("\\t", words);
     assertEquals(
         WordCountUtils.count(new Scanner(sentence)), WordCountUtils.count(Stream.of(sentence)));
   }

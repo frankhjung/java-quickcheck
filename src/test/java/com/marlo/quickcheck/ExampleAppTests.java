@@ -16,7 +16,11 @@ import org.junit.jupiter.api.TestMethodOrder;
 @TestMethodOrder(MethodOrderer.Random.class)
 public class ExampleAppTests {
 
-  /** Main using custom STDIN. */
+  /**
+   * Main using custom STDIN.
+   *
+   * @throws IOException if issue with IO
+   */
   @Test
   public void testMainGoodInput() throws IOException {
     // override stdin
@@ -45,7 +49,11 @@ public class ExampleAppTests {
     }
   }
 
-  /** Main does not accept parameters. */
+  /**
+   * Main does not accept parameters.
+   *
+   * @throws IOException if issue with IO
+   */
   @Test
   public void testMainBadInput() throws IOException {
     // override stdin
